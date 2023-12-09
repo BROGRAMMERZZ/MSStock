@@ -1,6 +1,7 @@
 package com.example.msstock.Service;
 
 import com.example.msstock.Entity.Fournisseur;
+import com.example.msstock.Entity.Stock;
 import com.example.msstock.Repository.FournisseurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,12 @@ public class FournisseurService {
     private FournisseurRepository fournisseurRepository;
 
     public Fournisseur AddFournisseur(Fournisseur fournisseur){
+
+        for(Stock stock: fournisseur.getStocks()){
+            stock.setFournisseur(fournisseur);
+            stock.setCreatedAt(new Date());
+            stock.setUpdatedAt(new Date());
+        }
         return fournisseurRepository.save(fournisseur);
     }
     public String deleteFournisseur(int id){
@@ -32,7 +39,7 @@ public class FournisseurService {
             Fournisseur oldFournisseur= fournisseurRepository.findById(id).get();
             oldFournisseur.setNomFournisseur(fournisseur.getNomFournisseur());
             oldFournisseur.setNumTel(fournisseur.getNumTel());
-            oldFournisseur.setProductCategorie(fournisseur.getProductCategorie());
+            oldFournisseur.setEmail(fournisseur.getEmail());
             oldFournisseur.setUpdatedAt(new Date());
             return fournisseurRepository.save(oldFournisseur);
         }

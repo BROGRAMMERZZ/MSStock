@@ -1,5 +1,8 @@
 package com.example.msstock.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,7 +21,7 @@ public class Stock implements Serializable {
     @Id
     @GeneratedValue
     private int idStock;
-    private int idProduit;
+    private String productName;
     private int quantity;
     private long price;
     private String status;
@@ -28,4 +31,7 @@ public class Stock implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
+    @ManyToOne
+    @JsonIgnore
+    private Fournisseur fournisseur;
 }

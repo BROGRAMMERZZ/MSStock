@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("Fournisseur")
+@CrossOrigin(origins = "*")
 public class FournisseurControllerRestAPI {
     @Autowired
     private FournisseurService fournisseurService;
@@ -25,11 +26,10 @@ public class FournisseurControllerRestAPI {
         return new ResponseEntity<>(fournisseurService.AddFournisseur(fournisseur),HttpStatus.OK);
     }
 
-    @DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping("deleteFournisseur/{id}")
-    public ResponseEntity<String> deleteFournisseur(@PathVariable(value = "id") int id){
-        return new ResponseEntity<>(fournisseurService.deleteFournisseur(id),HttpStatus.OK);
+    @DeleteMapping("deleteFournisseur/{id}")
+    void deleteFournisseur(@PathVariable(value = "id") int id){
+       fournisseurService.deleteFournisseur(id);
+
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,11 +39,9 @@ public class FournisseurControllerRestAPI {
         return new ResponseEntity<>(fournisseurService.getFournisseurs(),HttpStatus.OK);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping("updateFournisseur/{id}")
-    public ResponseEntity<Fournisseur> updateFournisseur(@PathVariable(value = "id") int id,@RequestBody Fournisseur fournisseur){
-        return new ResponseEntity<>(fournisseurService.updateFournisseur(id,fournisseur),HttpStatus.OK);
+    @PutMapping("updateFournisseur/{id}")
+    public Fournisseur updateFournisseur(@PathVariable(value = "id") int id,@RequestBody Fournisseur fournisseur){
+        return fournisseurService.updateFournisseur(id,fournisseur);
     }
 
 }
