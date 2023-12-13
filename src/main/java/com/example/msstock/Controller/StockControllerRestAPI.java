@@ -15,8 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("stock")
-@CrossOrigin(origins = "*")
-
 public class StockControllerRestAPI {
     @Autowired
     private StockService stockService;

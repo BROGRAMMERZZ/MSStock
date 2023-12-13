@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("Fournisseur")
-@CrossOrigin(origins = "*")
+
 public class FournisseurControllerRestAPI {
     @Autowired
     private FournisseurService fournisseurService;
